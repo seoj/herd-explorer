@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app="herd-explorer">
+<head>
+<script src="dist/bundle.js"></script>
+<title>Herd Explorer</title>
+</head>
+<body layout="column">
+    <md-content layout class="header">
+        <h1 class="title"><img class="logo" src="herd_sm_green.png" alt="herd" /> Herd Explorer</h1>
+    </md-content>
+    <md-content layout="row" flex>
+        <md-sidenav md-is-locked-open="true" md-whiteframe="4">
+            <md-list>
+                <md-list-item ng-click="$state.go('NamespaceList')">Namespaces</md-list-item>
+                <md-list-item ng-click="$state.go('StorageList')">Storages</md-list-item>
+            </md-list>
+        </md-sidenav>
+        <md-content flex layout-padding>
+            <div flex="noshrink" ui-view></div>
+        </md-content>
+    </md-content>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<div>
+    <h1>Business Object Data</h1>
+    <div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>ID</label></td>
+                <td>{{vm.businessObjectData.id}}</td>
+            </tr>
+            <tr>
+                <td><label>Namespace</label></td>
+                <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.businessObjectData.namespace}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Definition Name</label></td>
+                <td><a ui-sref="BusinessObjectDefinitionGet (vm.businessObjectDefinitionKey)">{{vm.businessObjectData.businessObjectDefinitionName}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Format</label></td>
+                <td><a ui-sref="BusinessObjectFormatGet (vm.businessObjectFormatKey)">{{vm.businessObjectData.businessObjectFormatUsage}}:{{vm.businessObjectData.businessObjectFormatFileType}}:{{vm.businessObjectData.businessObjectFormatVersion}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Partition Key</label></td>
+                <td>{{vm.businessObjectData.partitionKey}}</td>
+            </tr>
+            <tr ng-repeat="partitionValue in vm.businessObjectData.partitionValues">
+                <td><label>Partition Value {{$index+1}}</label></td>
+                <td>{{partitionValue}}</td>
+            </tr>
+            <tr>
+                <td><label>Version</label></td>
+                <td>{{vm.businessObjectData.version}}</td>
+            </tr>
+            <tr>
+                <td><label>Status</label></td>
+                <td>{{vm.businessObjectData.status}}</td>
+            </tr>
+        </table>
+        <div ng-if="vm.businessObjectData.attributes.length > 0">
+            <h2>Attributes</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr ng-repeat="attribute in vm.businessObjectData.attributes">
+                        <td><label>{{attribute.name}}</label></td>
+                        <td>{{attribute.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.businessObjectData.businessObjectDataParents.length > 0">
+            <h2>Parents</h2>
+            <div>
+                <table class="data-table data-table-horizontal">
+                    <thead>
+                        <tr>
+                            <th>Namespace</th>
+                            <th>Definition Name</th>
+                            <th>Format</th>
+                            <th>Partition Value 1</th>
+                            <th ng-repeat="index in [2,3,4,5]">Partition Value {{index}}</th>
+                            <th>Version</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="businessObjectDataParent in vm.businessObjectData.businessObjectDataParents">
+                            <td><a ui-sref="NamespaceGet (businessObjectDataParent.namespaceKey)">{{businessObjectDataParent.namespace}}</a></td>
+                            <td><a ui-sref="BusinessObjectDefinitionGet (businessObjectDataParent.businessObjectDefinitionKey)">{{businessObjectDataParent.businessObjectDefinitionName}}</a></td>
+                            <td><a ui-sref="BusinessObjectFormatGet (businessObjectDataParent.businessObjectFormatKey)">{{businessObjectDataParent.businessObjectFormatUsage}}:{{businessObjectDataParent.businessObjectFormatFileType}}:{{businessObjectDataParent.businessObjectFormatVersion}}</a></td>
+                            <td>{{businessObjectDataParent.partitionValue}}</td>
+                            <td ng-repeat="index in [0,1,2,3]">{{businessObjectDataParent.subPartitionValues[index]}}</td>
+                            <td>{{businessObjectDataParent.businessObjectDataVersion}}</td>
+                            <td><a ui-sref="BusinessObjectDataGet ({businessObjectDataKey:businessObjectDataParent})">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.businessObjectData.businessObjectDataChildren.length > 0">
+            <h2>Children</h2>
+            <div>
+                <table class="data-table data-table-horizontal">
+                    <thead>
+                        <tr>
+                            <th>Namespace</th>
+                            <th>Definition Name</th>
+                            <th>Format</th>
+                            <th>Partition Value 1</th>
+                            <th ng-repeat="index in [2,3,4,5]">Partition Value {{index}}</th>
+                            <th>Version</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="businessObjectDataChild in vm.businessObjectData.businessObjectDataChildren">
+                            <td><a ui-sref="NamespaceGet (businessObjectDataChild.namespaceKey)">{{businessObjectDataChild.namespace}}</a></td>
+                            <td><a ui-sref="BusinessObjectDefinitionGet (businessObjectDataChild.businessObjectDefinitionKey)">{{businessObjectDataChild.businessObjectDefinitionName}}</a></td>
+                            <td><a ui-sref="BusinessObjectFormatGet (businessObjectDataChild.businessObjectFormatKey)">{{businessObjectDataChild.businessObjectFormatUsage}}:{{businessObjectDataChild.businessObjectFormatFileType}}:{{businessObjectDataChild.businessObjectFormatVersion}}</a></td>
+                            <td>{{businessObjectDataChild.partitionValue}}</td>
+                            <td ng-repeat="index in [0,1,2,3]">{{businessObjectDataChild.subPartitionValues[index]}}</td>
+                            <td>{{businessObjectDataChild.businessObjectDataVersion}}</td>
+                            <td><a ui-sref="BusinessObjectDataGet ({businessObjectDataKey:businessObjectDataChild})">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <h2>Storage Units</h2>
+            <div ng-repeat="storageUnit in vm.businessObjectData.storageUnits">
+                <h3><a ui-sref="StorageGet ({storageName:storageUnit.storage.name})">{{storageUnit.storage.name}}</a></h3>
+                <table class="data-table data-table-vertical">
+                    <tr>
+                        <td><label>Directory</label></td>
+                        <td>{{storageUnit.storageDirectory.directoryPath}}</td>
+                    </tr>
+                </table>
+                <div ng-if="storageUnit.storageFiles.length > 0">
+                    <h4>Files</h4>
+                    <div>
+                        <table class="data-table data-table-horizontal">
+                            <thead>
+                                <tr>
+                                    <th>File Path</th>
+                                    <th>File Size</th>
+                                    <th>Row Count</th>
+                                    <th>Archive ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="storageFile in storageUnit.storageFiles">
+                                    <td>{{storageFile.filePath}}</td>
+                                    <td>{{storageFile.fileSizeBytes | fileSize}}</td>
+                                    <td>{{storageFile.rowCount}}</td>
+                                    <td>{{storageFile.archiveId}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

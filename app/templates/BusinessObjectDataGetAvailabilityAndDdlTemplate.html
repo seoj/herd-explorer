@@ -1,0 +1,169 @@
+<div>
+    <h1>Business Object Data Availability and DDL</h1>
+    <div>
+        <form ng-submit="vm.getAvailability()">
+            <table class="form-table form-table-vertical">
+                <tr>
+                    <td><label>Namespace</label></td>
+                    <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.form.namespace}}</a></td>
+                </tr>
+                <tr>
+                    <td><label>Definition Name</label></td>
+                    <td><a ui-sref="BusinessObjectDefinitionGet (vm.businessObjectDefinitionKey)">{{vm.form.businessObjectDefinitionName}}</a></td>
+                </tr>
+                <tr>
+                    <td><label>Format</label></td>
+                    <td><a ui-sref="BusinessObjectFormatGet (vm.businessObjectFormatKey)">{{vm.form.businessObjectFormatUsage}}:{{vm.form.businessObjectFormatFileType}}:{{vm.form.businessObjectFormatVersion}}</a></td>
+                </tr>
+                <tr>
+                    <td><label>Version</label></td>
+                    <td><input type="number" ng-model="vm.form.businessObjectDataVersion" /></td>
+                </tr>
+                <tr>
+                    <td><label>Storage Names</label></td>
+                    <td><input type="text" ng-model="vm.form.storageNames" /></td>
+                    <td><span>(comma separated)</span></td>
+                </tr>
+                <tr>
+                    <td><label>Include All Registered Sub-Partitions</label></td>
+                    <td><input type="checkbox" ng-model="vm.form.includeAllRegisteredSubPartitions" /></td>
+                </tr>
+            </table>
+            <div>
+                <h2>Partition Value Filters</h2>
+                <div ng-repeat="partitionValueFilter in vm.form.partitionValueFilters">
+                    <div>
+                        <table class="form-table form-table-vertical">
+                            <tr>
+                                <td><label>Filter by partition {{partitionValueFilter.partitionKey}}</label></td>
+                                <td><input type="checkbox" ng-model="partitionValueFilter.useFilter" /></td>
+                            </tr>
+                        </table>
+                        <table class="form-table form-table-vertical" ng-if="partitionValueFilter.useFilter">
+                            <tr>
+                                <td><label class="required">Type</label></td>
+                                <td><div>
+                                        <table>
+                                            <tr>
+                                                <td><input type="radio" id="partitionValueFilter[{{$index}}].type.values"
+                                                    name="partitionValueFilter[{{$index}}].type" ng-model="partitionValueFilter.type" value="values" /></td>
+                                                <td><label for="partitionValueFilter[{{$index}}].type.values">Values</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="partitionValueFilter[{{$index}}].type.range"
+                                                    name="partitionValueFilter[{{$index}}].type" ng-model="partitionValueFilter.type" value="range" /></td>
+                                                <td><label for="partitionValueFilter[{{$index}}].type.range">Range</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="partitionValueFilter[{{$index}}].type.latestBefore"
+                                                    name="partitionValueFilter[{{$index}}].type" ng-model="partitionValueFilter.type" value="latestBefore" /></td>
+                                                <td><label for="partitionValueFilter[{{$index}}].type.latestBefore">Latest Before</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" id="partitionValueFilter[{{$index}}].type.latestAfter"
+                                                    name="partitionValueFilter[{{$index}}].type" ng-model="partitionValueFilter.type" value="latestAfter" /></td>
+                                                <td><label for="partitionValueFilter[{{$index}}].type.latestAfter">Latest After</label></td>
+                                            </tr>
+                                        </table>
+                                    </div></td>
+                            </tr>
+                            <tr ng-if="partitionValueFilter.type === 'values'">
+                                <td><label class="required">Partition Values</label></td>
+                                <td><input type="text" ng-model="partitionValueFilter.partitionValues" /></td>
+                                <td><span>(comma separated)</span></td>
+                            </tr>
+                            <tr ng-if="partitionValueFilter.type === 'range'">
+                                <td><label class="required">Start Partition Value</label></td>
+                                <td><input type="text" ng-model="partitionValueFilter.startPartitionValue" /></td>
+                            </tr>
+                            <tr ng-if="partitionValueFilter.type === 'range'">
+                                <td><label class="required">End Partition Value</label></td>
+                                <td><input type="text" ng-model="partitionValueFilter.endPartitionValue" /></td>
+                            </tr>
+                            <tr ng-if="partitionValueFilter.type === 'latestBefore'">
+                                <td><label class="required">Partition Value</label></td>
+                                <td><input type="text" ng-model="partitionValueFilter.latestBeforePartitionValue" /></td>
+                            </tr>
+                            <tr ng-if="partitionValueFilter.type === 'latestAfter'">
+                                <td><label class="required">Partition Value</label></td>
+                                <td><input type="text" ng-model="partitionValueFilter.latestAfterPartitionValue" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit">Get Availability</button>
+            </div>
+        </form>
+        <hr />
+        <div class="error" ng-if="vm.errorAvailability">{{vm.errorAvailability}}</div>
+        <div ng-if="vm.businessObjectDataAvalability">
+            <h2>Available Statuses</h2>
+            <div>
+                <table class="data-table data-table-horizontal">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="partitionKey in vm.partitionKeys">{{partitionKey}}</th>
+                            <th>Version</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="availableStatus in vm.businessObjectDataAvalability.availableStatuses">
+                            <td ng-repeat="partitionKey in vm.partitionKeys">{{availableStatus.partitionValues[$index]}}</td>
+                            <td>{{availableStatus.businessObjectDataVersion}}</td>
+                            <td>{{availableStatus.reason}}</td>
+                            <td><a ui-sref="BusinessObjectDataGet ({ businessObjectDataKey : availableStatus.businessObjectDataKey })">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+                <div>
+                    <h3>Generate DDL</h3>
+                    <div>
+                        <form ng-submit="vm.generateDdl()">
+                            <table class="form-table form-table-vertical">
+                                <tr>
+                                    <td><label class="required">Output Format</label></td>
+                                    <td><select ng-model="vm.form.outputFormat" ng-options="outputFormat for outputFormat in ['HIVE_13_DDL']"></select></td>
+                                </tr>
+                                <tr>
+                                    <td><label class="required">Table Name</label></td>
+                                    <td><input type="text" ng-model="vm.form.tableName" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Custom DDL</label></td>
+                                    <td><input type="text" ng-model="vm.form.customDdlName" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Include Drop Table Statement</label></td>
+                                    <td><input type="checkbox" ng-model="vm.form.includeDropTableStatement" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Include "If Not Exists" Option</label></td>
+                                    <td><input type="checkbox" ng-model="vm.form.includeIfNotExistsOption" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Include Drop Partitions</label></td>
+                                    <td><input type="checkbox" ng-model="vm.form.includeDropPartitions" /></td>
+                                </tr>
+                            </table>
+                            <div>
+                                <button type="submit">Generate DDL</button>
+                            </div>
+                        </form>
+                        <div class="error" ng-if="vm.errorDdl">{{vm.errorDdl}}</div>
+                        <hr />
+                        <div ng-if="vm.businessObjectDataDdl">
+                            <h4>DDL</h4>
+                            <div>
+                                <highlight language="SQL" value="vm.businessObjectDataDdl.ddl"></highlight>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

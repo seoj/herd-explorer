@@ -1,0 +1,61 @@
+<div>
+    <h1>Business Object Definition</h1>
+    <div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>ID</label></td>
+                <td>{{vm.businessObjectDefinition.id}}</td>
+            </tr>
+            <tr>
+                <td><label>Namespace</label></td>
+                <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.businessObjectDefinition.namespace}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Definition Name</label></td>
+                <td>{{vm.businessObjectDefinition.businessObjectDefinitionName}}</td>
+            </tr>
+            <tr>
+                <td><label>Data Provider</label></td>
+                <td>{{vm.businessObjectDefinition.dataProviderName}}</td>
+            </tr>
+            <tr>
+                <td><label>Description</label></td>
+                <td>{{vm.businessObjectDefinition.description}}</td>
+            </tr>
+        </table>
+        <div ng-if="vm.businessObjectDefinition.attributes.length > 0">
+            <h2>Attributes</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr ng-repeat="attribute in vm.businessObjectDefinition.attributes">
+                        <td><label>{{attribute.name}}</label></td>
+                        <td>{{attribute.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.businessObjectFormatKeys.length > 0">
+            <h2>Business Object Formats</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <thead>
+                        <tr>
+                            <th>Usage</th>
+                            <th>FileType</th>
+                            <th>Version</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="businessObjectFormatKey in vm.businessObjectFormatKeys">
+                            <td>{{businessObjectFormatKey.businessObjectFormatUsage}}</td>
+                            <td>{{businessObjectFormatKey.businessObjectFormatFileType}}</td>
+                            <td class="align-right">{{businessObjectFormatKey.businessObjectFormatVersion}}</td>
+                            <td><a ui-sref="BusinessObjectFormatGet (businessObjectFormatKey)">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

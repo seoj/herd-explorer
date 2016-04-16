@@ -1,0 +1,11 @@
+<div>
+    <h1>Notification Registrations</h1>
+    <h2>for namespace {{vm.namespace}}</h2>
+    <div>
+        <table>
+            <tr ng-repeat="businessObjectDataNotificationRegistrationKey in vm.businessObjectDataNotificationRegistrationKeys">
+                <td><a ui-sref="BusinessObjectDataNotificationRegistrationGet (businessObjectDataNotificationRegistrationKey)">{{businessObjectDataNotificationRegistrationKey.notificationName}}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <h1>Storage</h1>
+    <div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>Name</label></td>
+                <td>{{vm.storage.name}}</td>
+            </tr>
+            <tr>
+                <td><label>Storage Platform</label></td>
+                <td>{{vm.storage.storagePlatformName}}</td>
+            </tr>
+        </table>
+        <div>
+            <h2>Attributes</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr ng-repeat="attribute in vm.storage.attributes">
+                        <td><label>{{attribute.name}}</label></td>
+                        <td>{{attribute.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div>
+    <h1>Notification Registration</h1>
+    <div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>ID</label></td>
+                <td>{{vm.businessObjectDataNotificationRegistration.id}}</td>
+            </tr>
+            <tr>
+                <td><label>Namespace</label></td>
+                <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.businessObjectDataNotificationRegistration.businessObjectDataNotificationRegistrationKey.namespace}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Name</label></td>
+                <td>{{vm.businessObjectDataNotificationRegistration.businessObjectDataNotificationRegistrationKey.notificationName}}</td>
+            </tr>
+            <tr>
+                <td><label>Event Type</label></td>
+                <td>{{vm.businessObjectDataNotificationRegistration.businessObjectDataEventType}}</td>
+            </tr>
+            <tr>
+                <td><label>Status</label></td>
+                <td>{{vm.businessObjectDataNotificationRegistration.notificationRegistrationStatus}}</td>
+            </tr>
+        </table>
+        <div>
+            <h2>Filter</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr>
+                        <td><label>Namespace</label></td>
+                        <td><a ui-sref="NamespaceGet (vm.filterNamespaceKey)">{{vm.businessObjectDataNotificationFilter.namespace}}</a></td>
+                    </tr>
+                    <tr>
+                        <td><label>Definition Name</label></td>
+                        <td><a ui-sref="BusinessObjectDefinitionGet (vm.filterBusinessObjectDefinitionKey)">{{vm.businessObjectDataNotificationFilter.businessObjectDefinitionName}}</a></td>
+                    </tr>
+                    <tr>
+                        <td><label>Usage</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.businessObjectFormatUsage}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>File Type</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.businessObjectFormatFileType}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Format Version</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.businessObjectFormatVersion}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Storage</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.storageName}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>New Business Object Data Status</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.newBusinessObjectDataStatus}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Old Business Object Data Status</label></td>
+                        <td>{{vm.businessObjectDataNotificationFilter.oldBusinessObjectDataStatus}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <h2>Job Actions</h2>
+            <div ng-repeat="jobAction in vm.businessObjectDataNotificationRegistration.jobActions">
+                <h3>Job <a ui-sref="JobDefinitionGet (jobAction.key)">{{jobAction.namespace}}.{{jobAction.jobName}}</a></h3>
+                <div>
+                    <h4>Correlation Data</h4>
+                    <pre>{{jobAction.correlationData}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

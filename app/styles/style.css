@@ -1,0 +1,57 @@
+html {
+   font: 10pt Helvetica;
+}
+
+table {
+   border-collapse: collapse;
+}
+
+table td, table th {
+   padding: .5em 1em;
+}
+
+table.data-table>tbody>tr>td>label:after {
+   content: ':';
+}
+
+table.data-table>tbody>tr:nth-child(odd) {
+   background-color: #F5F5F5;
+}
+
+.align-right {
+   text-align: right;
+}
+
+table.form-table>tbody>tr>td>label:after {
+   content: ':';
+}
+
+table.form-table>tbody>tr>td>label.required:before {
+   content: '*';
+   color: red;
+}
+
+table.form-table>tbody>tr>td {
+   vertical-align: top;
+}
+
+.error {
+   color: red;
+}
+
+.title {
+   line-height: 30px;
+   height: 35px;
+   margin: 0px;
+   padding-left: 1em;
+}
+
+.header {
+   background-color: #232323;
+   color: #FFFFFF;
+}
+
+.logo {
+   vertical-align: bottom;
+   height: 25px;
+}

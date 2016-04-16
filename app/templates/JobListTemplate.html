@@ -1,0 +1,49 @@
+<div>
+    <h1>Jobs</h1>
+    <div>
+        <form>
+            <table class="form-table form-table-vertical">
+                <tr>
+                    <td><label>Namespace</label></td>
+                    <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.form.namespace}}</a></td>
+                </tr>
+                <tr>
+                    <td><label>Name</label></td>
+                    <td><a ui-sref="JobDefinitionGet (vm.jobDefinitionKey)">{{vm.form.jobName}}</a></td>
+                </tr>
+                <tr>
+                    <td><label>Status</label></td>
+                    <td><select ng-model="vm.form.status" ng-options="status for status in vm.statuses" ng-change="vm.getJobs()">
+                            <option></option>
+                    </select></td>
+                </tr>
+            </table>
+        </form>
+        <div>
+            <h2>Jobs</h2>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Status</th>
+                            <th>Exceptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="jobSummary in vm.jobSummaries">
+                            <td>{{jobSummary.id}}</td>
+                            <td>{{jobSummary.startTime | date : 'yyyy-MM-dd h:mm a'}}</td>
+                            <td>{{jobSummary.endTime | date : 'yyyy-MM-dd h:mm a'}}</td>
+                            <td>{{jobSummary.status}}</td>
+                            <td>{{jobSummary.totalExceptions}}</td>
+                            <td><a ui-sref="JobGet ({id:jobSummary.id})">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

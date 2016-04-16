@@ -1,0 +1,155 @@
+<div>
+    <h1>Business Object Format</h1>
+    <div>
+        <div>
+            <ul>
+                <li><a ui-sref="BusinessObjectDataGetAvailabilityAndDdl ({ form : (vm.businessObjectFormatKey | json) })">BusinessObjectDataGetAvailabilityAndDdl</a></li>
+            </ul>
+        </div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>ID</label></td>
+                <td>{{vm.businessObjectFormat.id}}</td>
+            </tr>
+            <tr>
+                <td><label>Namespace</label></td>
+                <td><a ui-sref="NamespaceGet (vm.namespaceKey)">{{vm.businessObjectFormat.namespace}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Definition Name</label></td>
+                <td><a ui-sref="BusinessObjectDefinitionGet (vm.businessObjectDefinitionKey)">{{vm.businessObjectFormat.businessObjectDefinitionName}}</a></td>
+            </tr>
+            <tr>
+                <td><label>Usage</label></td>
+                <td>{{vm.businessObjectFormat.businessObjectFormatUsage}}</td>
+            </tr>
+            <tr>
+                <td><label>File Type</label></td>
+                <td>{{vm.businessObjectFormat.businessObjectFormatFileType}}</td>
+            </tr>
+            <tr>
+                <td><label>Version</label></td>
+                <td>{{vm.businessObjectFormat.businessObjectFormatVersion}}</td>
+            </tr>
+            <tr>
+                <td><label>Latest Version</label></td>
+                <td>{{vm.businessObjectFormat.latestVersion ? 'Y' : 'N'}}</td>
+            </tr>
+            <tr>
+                <td><label>Partition Key</label></td>
+                <td>{{vm.businessObjectFormat.partitionKey}}</td>
+            </tr>
+            <tr>
+                <td><label>Description</label></td>
+                <td>{{vm.businessObjectFormat.description}}</td>
+            </tr>
+        </table>
+        <div ng-if="vm.businessObjectFormat.attributes.length > 0">
+            <h2>Attributes</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr ng-repeat="attribute in vm.businessObjectFormat.attributes">
+                        <td><label>{{attribute.name}}</label></td>
+                        <td>{{attribute.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.businessObjectFormat.attributeDefinitions.length > 0">
+            <h2>Attribute Definitions</h2>
+            <div>
+                <table class="data-table data-table-horizontal">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Publish?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="attributeDefinitions in vm.businessObjectFormat.attributeDefinitions">
+                            <td>{{attributeDefinitions.name}}</td>
+                            <td>{{attributeDefinitions.publish ? 'Y' : 'N'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.businessObjectFormat.schema">
+            <h2>Schema</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr>
+                        <td><label>Null Value</label></td>
+                        <td>{{vm.businessObjectFormat.schema.nullValue}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Delimiter</label></td>
+                        <td>{{vm.businessObjectFormat.schema.delimiter}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Escape Character</label></td>
+                        <td>{{vm.businessObjectFormat.schema.escapeCharacter}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Partition Key Group</label></td>
+                        <td>{{vm.businessObjectFormat.schema.partitionKeyGroup}}</td>
+                    </tr>
+                </table>
+                <div ng-if="vm.businessObjectFormat.schema.partitions.length > 0">
+                    <h3>Partitions</h3>
+                    <div>
+                        <table class="data-table data-table-horizontal">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Required?</th>
+                                    <th>Default Value</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="partition in vm.businessObjectFormat.schema.partitions">
+                                    <td>{{partition.name}}</td>
+                                    <td>{{partition.type}}</td>
+                                    <td>{{partition.size}}</td>
+                                    <td>{{partition.required}}</td>
+                                    <td>{{partition.defaultValue}}</td>
+                                    <td>{{partition.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div ng-if="vm.businessObjectFormat.schema.columns.length > 0">
+                    <h3>Columns</h3>
+                    <div>
+                        <table class="data-table data-table-horizontal">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Required?</th>
+                                    <th>Default Value</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="column in vm.businessObjectFormat.schema.columns">
+                                    <td>{{column.name}}</td>
+                                    <td>{{column.type}}</td>
+                                    <td>{{column.size}}</td>
+                                    <td>{{column.required}}</td>
+                                    <td>{{column.defaultValue}}</td>
+                                    <td>{{column.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

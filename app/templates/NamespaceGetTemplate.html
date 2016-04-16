@@ -1,0 +1,21 @@
+<div>
+    <h1>Namespace</h1>
+    <div>
+        <table>
+            <tr>
+                <td><a ui-sref="BusinessObjectDataNotificationRegistrationList ({namespace:vm.namespace.namespaceCode})">Notification Registrations</a></td>
+            </tr>
+            <tr>
+                <td><a ui-sref="JobDefinitionGet ({namespace:vm.namespace.namespaceCode})">Find Job Definition</a></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Business Object Definitions</h2>
+        <table>
+            <tr ng-repeat="businessObjectDefinitionKey in vm.businessObjectDefinitionKeys">
+                <td><a ui-sref="BusinessObjectDefinitionGet (businessObjectDefinitionKey)">{{businessObjectDefinitionKey.businessObjectDefinitionName}}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

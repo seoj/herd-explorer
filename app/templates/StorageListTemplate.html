@@ -1,0 +1,10 @@
+<div>
+    <h1>Storages</h1>
+    <div>
+        <table>
+            <tr ng-repeat="storageKey in vm.storageKeys">
+                <td><a ui-sref="StorageGet (storageKey)">{{storageKey.storageName}}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

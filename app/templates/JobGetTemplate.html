@@ -1,0 +1,89 @@
+<div>
+    <h1>Job</h1>
+    <div>
+        <table class="data-table data-table-vertical">
+            <tr>
+                <td><label>ID</label></td>
+                <td>{{vm.job.id}}</td>
+            </tr>
+            <tr>
+                <td><label>Status</label></td>
+                <td>{{vm.job.status}}</td>
+            </tr>
+            <tr>
+                <td><label>Delete Reason</label></td>
+                <td>{{vm.job.deleteReason}}</td>
+            </tr>
+        </table>
+        <div>
+            <h2>Parameters</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr ng-repeat="parameter in vm.job.parameters">
+                        <td><label>{{parameter.name}}</label></td>
+                        <td>{{parameter.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.job.currentWorkflowStep">
+            <h2>Current Step</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <tr>
+                        <td><label>ID</label></td>
+                        <td>{{vm.job.currentWorkflowStep.id}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Name</label></td>
+                        <td>{{vm.job.currentWorkflowStep.name}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.job.workflowErrors.length > 0">
+            <h2>Errors</h2>
+            <div>
+                <table class="data-table data-table-vertical">
+                    <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>Retries Left</th>
+                            <th>Stack Trace</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="workflowError in vm.job.workflowErrors">
+                            <td>{{workflowError.errorMessage}}</td>
+                            <td>{{workflowError.retriesLeft}}</td>
+                            <td><pre>{{workflowError.errorStackTrace}}</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-if="vm.job.completedWorkflowSteps.length > 0">
+            <h2>Completed Steps</h2>
+            <div>
+                <table class="data-table data-table-horizontal">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="completedWorkflowStep in vm.job.completedWorkflowSteps">
+                            <td>{{completedWorkflowStep.id}}</td>
+                            <td>{{completedWorkflowStep.name}}</td>
+                            <td>{{completedWorkflowStep.startTime | date : 'yyyy-MM-dd h:mm a'}}</td>
+                            <td>{{completedWorkflowStep.endTime | date : 'yyyy-MM-dd h:mm a'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
